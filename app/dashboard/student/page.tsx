@@ -109,8 +109,8 @@ export default function StudentDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50">
-      <header className="border-b border-border bg-white/80 backdrop-blur-sm">
+    <div className="min-h-screen bg-background">
+      <header className="border-b border-border bg-card/50 backdrop-blur-sm">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
@@ -172,7 +172,7 @@ export default function StudentDashboard() {
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           <Link href="/lessons">
-            <Card className="hover:shadow-md transition-shadow cursor-pointer bg-white/70 backdrop-blur-sm">
+            <Card className="hover:shadow-md transition-shadow cursor-pointer bg-card/80 backdrop-blur-sm">
               <CardContent className="flex flex-col items-center justify-center p-6">
                 <BookOpen className="h-8 w-8 text-primary mb-2" />
                 <span className="text-sm font-medium">Browse Lessons</span>
@@ -180,7 +180,7 @@ export default function StudentDashboard() {
             </Card>
           </Link>
           <Link href="/community">
-            <Card className="hover:shadow-md transition-shadow cursor-pointer bg-white/70 backdrop-blur-sm">
+            <Card className="hover:shadow-md transition-shadow cursor-pointer bg-card/80 backdrop-blur-sm">
               <CardContent className="flex flex-col items-center justify-center p-6">
                 <Users className="h-8 w-8 text-primary mb-2" />
                 <span className="text-sm font-medium">Join Community</span>
@@ -188,14 +188,14 @@ export default function StudentDashboard() {
             </Card>
           </Link>
           <Link href="/offline">
-            <Card className="hover:shadow-md transition-shadow cursor-pointer bg-white/70 backdrop-blur-sm">
+            <Card className="hover:shadow-md transition-shadow cursor-pointer bg-card/80 backdrop-blur-sm">
               <CardContent className="flex flex-col items-center justify-center p-6">
                 <Download className="h-8 w-8 text-primary mb-2" />
                 <span className="text-sm font-medium">Offline Content</span>
               </CardContent>
             </Card>
           </Link>
-          <Card className="hover:shadow-md transition-shadow cursor-pointer bg-white/70 backdrop-blur-sm">
+          <Card className="hover:shadow-md transition-shadow cursor-pointer bg-card/80 backdrop-blur-sm">
             <CardContent className="flex flex-col items-center justify-center p-6">
               <Award className="h-8 w-8 text-primary mb-2" />
               <span className="text-sm font-medium">Achievements</span>
@@ -204,7 +204,7 @@ export default function StudentDashboard() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <Card className="bg-white/70 backdrop-blur-sm">
+          <Card className="bg-card/80 backdrop-blur-sm">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Overall Progress</CardTitle>
               <TrendingUp className="h-4 w-4 text-muted-foreground" />
@@ -215,7 +215,7 @@ export default function StudentDashboard() {
             </CardContent>
           </Card>
 
-          <Card className="bg-white/70 backdrop-blur-sm">
+          <Card className="bg-card/80 backdrop-blur-sm">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Weekly Goal</CardTitle>
               <Target className="h-4 w-4 text-muted-foreground" />
@@ -228,7 +228,7 @@ export default function StudentDashboard() {
             </CardContent>
           </Card>
 
-          <Card className="bg-white/70 backdrop-blur-sm">
+          <Card className="bg-card/80 backdrop-blur-sm">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Learning Streak</CardTitle>
               <Star className="h-4 w-4 text-muted-foreground" />
@@ -239,7 +239,7 @@ export default function StudentDashboard() {
             </CardContent>
           </Card>
 
-          <Card className="bg-white/70 backdrop-blur-sm">
+          <Card className="bg-card/80 backdrop-blur-sm">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Badges Earned</CardTitle>
               <Award className="h-4 w-4 text-muted-foreground" />
@@ -252,7 +252,7 @@ export default function StudentDashboard() {
         </div>
 
         <Tabs defaultValue="subjects" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4 bg-white/70 backdrop-blur-sm">
+          <TabsList className="grid w-full grid-cols-4 bg-card/80 backdrop-blur-sm">
             <TabsTrigger value="subjects">Subjects</TabsTrigger>
             <TabsTrigger value="assignments">Assignments</TabsTrigger>
             <TabsTrigger value="progress">Progress</TabsTrigger>
@@ -262,7 +262,7 @@ export default function StudentDashboard() {
           <TabsContent value="subjects" className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {studentData.subjects.map((subject, index) => (
-                <Card key={index} className="hover:shadow-md transition-shadow bg-white/70 backdrop-blur-sm">
+                <Card key={index} className="hover:shadow-md transition-shadow bg-card/80 backdrop-blur-sm">
                   <CardHeader>
                     <div className="flex items-center justify-between">
                       <CardTitle className="font-[family-name:var(--font-playfair)]">{subject.name}</CardTitle>
@@ -309,7 +309,7 @@ export default function StudentDashboard() {
           </TabsContent>
 
           <TabsContent value="assignments" className="space-y-6">
-            <Card className="bg-white/70 backdrop-blur-sm">
+            <Card className="bg-card/80 backdrop-blur-sm">
               <CardHeader>
                 <CardTitle className="font-[family-name:var(--font-playfair)]">Upcoming Assignments</CardTitle>
                 <CardDescription>
@@ -365,7 +365,7 @@ export default function StudentDashboard() {
 
           <TabsContent value="progress" className="space-y-6">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <Card className="bg-white/70 backdrop-blur-sm">
+              <Card className="bg-card/80 backdrop-blur-sm">
                 <CardHeader>
                   <CardTitle className="font-[family-name:var(--font-playfair)]">Achievement Badges</CardTitle>
                   <CardDescription>Unlock badges by completing challenges</CardDescription>
@@ -392,7 +392,7 @@ export default function StudentDashboard() {
                 </CardContent>
               </Card>
 
-              <Card className="bg-white/70 backdrop-blur-sm">
+              <Card className="bg-card/80 backdrop-blur-sm">
                 <CardHeader>
                   <CardTitle className="font-[family-name:var(--font-playfair)]">Recent Activity</CardTitle>
                   <CardDescription>Your learning journey</CardDescription>
@@ -421,7 +421,7 @@ export default function StudentDashboard() {
           </TabsContent>
 
           <TabsContent value="community" className="space-y-6">
-            <Card className="bg-white/70 backdrop-blur-sm">
+            <Card className="bg-card/80 backdrop-blur-sm">
               <CardHeader>
                 <CardTitle className="font-[family-name:var(--font-playfair)]">Community & Mentoring</CardTitle>
                 <CardDescription>Connect with peers and get help from mentors</CardDescription>

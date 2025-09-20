@@ -38,6 +38,7 @@ import {
   WifiOff,
 } from "lucide-react"
 import Link from "next/link"
+import { useAuth } from "@/lib/auth-context"
 
 // Mock data for demonstration
 const teacherData = {
@@ -118,6 +119,7 @@ export default function TeacherDashboard() {
   const [selectedClass, setSelectedClass] = useState("all")
   const [searchTerm, setSearchTerm] = useState("")
   const [isAssignmentDialogOpen, setIsAssignmentDialogOpen] = useState(false)
+  const { user } = useAuth()
 
   const filteredStudents = teacherData.students.filter((student) => {
     const matchesSearch = student.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -128,7 +130,7 @@ export default function TeacherDashboard() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="border-b border-border bg-card">
+      <header className="border-b border-border bg-card/50 backdrop-blur-sm">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
@@ -151,12 +153,14 @@ export default function TeacherDashboard() {
               </div>
               <div className="flex items-center space-x-2">
                 <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-semibold">
-                  {teacherData.name
-                    .split(" ")
-                    .map((n) => n[0])
-                    .join("")}
+                  {user?.name
+                    ? user.name
+                        .split(" ")
+                        .map((n) => n[0])
+                        .join("")
+                    : "T"}
                 </div>
-                <span className="hidden md:block font-medium">{teacherData.name}</span>
+                <span className="hidden md:block font-medium">{user?.name || "Teacher"}</span>
               </div>
             </div>
           </div>
@@ -167,7 +171,7 @@ export default function TeacherDashboard() {
         {/* Welcome Section */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-2 font-[family-name:var(--font-playfair)]">
-            Welcome, {teacherData.name.split(" ")[1]} Sir!
+            Welcome, {user?.name ? user.name.split(" ")[0] : "Teacher"}!
           </h1>
           <p className="text-muted-foreground">
             Manage your classes, track student progress, and create engaging learning experiences.
@@ -176,7 +180,7 @@ export default function TeacherDashboard() {
 
         {/* Stats Overview */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <Card>
+          <Card className="bg-card/80 backdrop-blur-sm">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Total Students</CardTitle>
               <Users className="h-4 w-4 text-muted-foreground" />
@@ -187,7 +191,7 @@ export default function TeacherDashboard() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="bg-card/80 backdrop-blur-sm">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Avg Completion</CardTitle>
               <TrendingUp className="h-4 w-4 text-muted-foreground" />
@@ -198,7 +202,7 @@ export default function TeacherDashboard() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="bg-card/80 backdrop-blur-sm">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Active Classes</CardTitle>
               <BookOpen className="h-4 w-4 text-muted-foreground" />
@@ -209,7 +213,7 @@ export default function TeacherDashboard() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="bg-card/80 backdrop-blur-sm">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Experience</CardTitle>
               <BarChart3 className="h-4 w-4 text-muted-foreground" />
@@ -223,7 +227,7 @@ export default function TeacherDashboard() {
 
         {/* Main Content Tabs */}
         <Tabs defaultValue="students" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-5">
+          <TabsList className="grid w-full grid-cols-5 bg-card/80 backdrop-blur-sm">
             <TabsTrigger value="students">Students</TabsTrigger>
             <TabsTrigger value="classes">Classes</TabsTrigger>
             <TabsTrigger value="assignments">Assignments</TabsTrigger>
@@ -233,7 +237,7 @@ export default function TeacherDashboard() {
 
           {/* Students Tab */}
           <TabsContent value="students" className="space-y-6">
-            <Card>
+            <Card className="bg-card/80 backdrop-blur-sm">
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <div>
@@ -389,7 +393,7 @@ export default function TeacherDashboard() {
           <TabsContent value="classes" className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {teacherData.classes.map((classInfo, index) => (
-                <Card key={index} className="hover:shadow-md transition-shadow">
+                <Card key={index} className="hover:shadow-md transition-shadow bg-card/80 backdrop-blur-sm">
                   <CardHeader>
                     <div className="flex items-center justify-between">
                       <CardTitle className="font-[family-name:var(--font-playfair)]">{classInfo.name}</CardTitle>
@@ -423,7 +427,7 @@ export default function TeacherDashboard() {
 
           {/* Assignments Tab */}
           <TabsContent value="assignments" className="space-y-6">
-            <Card>
+            <Card className="bg-card/80 backdrop-blur-sm">
               <CardHeader>
                 <CardTitle className="font-[family-name:var(--font-playfair)]">Assignment Management</CardTitle>
                 <CardDescription>Create, distribute, and grade assignments</CardDescription>
@@ -444,7 +448,7 @@ export default function TeacherDashboard() {
           {/* Analytics Tab */}
           <TabsContent value="analytics" className="space-y-6">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <Card>
+              <Card className="bg-card/80 backdrop-blur-sm">
                 <CardHeader>
                   <CardTitle className="font-[family-name:var(--font-playfair)]">Class Performance</CardTitle>
                   <CardDescription>Overview of student progress across classes</CardDescription>
@@ -467,7 +471,7 @@ export default function TeacherDashboard() {
                 </CardContent>
               </Card>
 
-              <Card>
+              <Card className="bg-card/80 backdrop-blur-sm">
                 <CardHeader>
                   <CardTitle className="font-[family-name:var(--font-playfair)]">Recent Activity</CardTitle>
                   <CardDescription>Your recent teaching activities</CardDescription>
@@ -492,7 +496,7 @@ export default function TeacherDashboard() {
 
           {/* Tasks Tab */}
           <TabsContent value="tasks" className="space-y-6">
-            <Card>
+            <Card className="bg-card/80 backdrop-blur-sm">
               <CardHeader>
                 <CardTitle className="font-[family-name:var(--font-playfair)]">Pending Tasks</CardTitle>
                 <CardDescription>Keep track of your teaching responsibilities</CardDescription>
