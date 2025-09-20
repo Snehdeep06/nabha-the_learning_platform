@@ -22,10 +22,13 @@ import {
 } from "lucide-react"
 import Link from "next/link"
 import { useAuth } from "@/lib/auth-context"
+import { useRouter } from "next/navigation"
 
 export default function StudentDashboard() {
   const [isOffline, setIsOffline] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const { user, updateUser } = useAuth()
+  const router = useRouter()
 
   const [studentData, setStudentData] = useState(() => {
     if (!user) return null
@@ -99,17 +102,62 @@ export default function StudentDashboard() {
   })
 
   useEffect(() => {
-    if (user?.isFirstLogin) {
+    console.log("[v0] Dashboard mounted, user:", user)
+
+    // Give some time for auth context to initialize
+    const timer = setTimeout(() => {
+      if (!user) {
+        console.log("[v0] No user found, redirecting to signup")
+        router.push("/signup")
+      } else {
+        console.log("[v0] User found, setting loading to false")
+        setIsLoading(false)
+      }
+    }, 1000)
+
+    return () => clearTimeout(timer)
+  }, [user, router])
+
+  useEffect(() => {
+    if (user && user.isFirstLogin) {
       updateUser({ isFirstLogin: false })
     }
   }, [user, updateUser])
 
-  if (!user || !studentData) {
-    return <div>Loading...</div>
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-cyan-900 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-400 mx-auto mb-4"></div>
+          <p className="text-white">Loading your dashboard...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (!user) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-cyan-900 flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-white mb-4">Please sign up or log in to access your dashboard.</p>
+          <Button onClick={() => router.push("/signup")}>Go to Signup</Button>
+        </div>
+      </div>
+    )
+  }
+
+  if (!studentData) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-cyan-900 flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-white">Unable to load student data.</p>
+        </div>
+      </div>
+    )
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-cyan-900">
       <header className="border-b border-border bg-card/50 backdrop-blur-sm">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
